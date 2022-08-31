@@ -10,6 +10,7 @@ import './sign-up-form.styles.scss';
 
 import Button from "../button/button.component";
 
+// Placeholder of formFields
 const defaultFormFields = {
     displayName: '',
     email: '',
@@ -21,26 +22,29 @@ const SignUpForm = () => {
     const [formFields, setFormFields] = useState(defaultFormFields);
     const { displayName, email, password, confirmPassword } = formFields;
 
+    // Resets the formFields
     const resetFormFields = () => {
         setFormFields(defaultFormFields);
     }
 
+    // Set the value of formFields
     const handleChange = (event) => {
         const { name, value } = event.target;
 
         setFormFields({...formFields, [name]: value});
     }
 
-    console.log(formFields);
-
+    // Handles the data being submitted by the user
     const handleSubmit = async (event) => {
         event.preventDefault();
 
+        // check if pw & confirm pw are the same
         if(password !== confirmPassword) {
             alert("Password do not match");
             return;
         }
 
+        // Send the data to authentication & firestore database
         try {
             const { user } = await createAuthUserWithEmailAndPassword(email, password);
 
