@@ -19,6 +19,7 @@ export const UserProvider = ({ children }) => {
     // stops listening when components unmount
     useEffect(() => {
         const unsubscribe = onAuthStateChangedListener((user) => {
+            // If there's a user, create a firestore document
             if (user) {
                 createUserDocumentFromAuth(user);
             } 
